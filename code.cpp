@@ -26,7 +26,7 @@ public:                                                          // I believe th
 
     }
       //Bfs Traversal
-void BFS(){
+void BFS(){    //O(V+E)
     queue<int> queue;
     queue.push(0);
 
@@ -37,12 +37,12 @@ void BFS(){
 
     while(queue.size() >0) {
 
-        int u =queue.front();
+        int u =queue.front();   // u-v
         queue.pop();
 
         cout << u << " ";
 
-        for (int neighbour : listOfIntegers[u]){
+        for (int neighbour : listOfIntegers[u]){    //v -> immediate neighbours
 
             if(!visited[neighbour]){
                 visited[neighbour]=true;
@@ -52,7 +52,30 @@ void BFS(){
     }
 cout << endl; 
 
+};
+void dfsHelper(int u,vector<bool> &vis ){   //O(V+E)
+
+    cout << u << " " ;
+    vis[u] =true;
+
+    for (int v : listOfIntegers[u]){   //u -> v 
+
+        if(!vis[v]){
+            dfsHelper(v,vis);
+
+        }
+    }
+
+};
+
+//DFS Traversal
+void DFS(){
+    int src =0 ;
+    vector<bool> vis(V,false);
+
+    dfsHelper(src,vis);
 }
+
     void printAdjList(){
             for(int i=0;i<V;i++){  
                 cout << i << " :" ;
@@ -76,8 +99,11 @@ int main(){
     g.addEdge(1,3);
     g.addEdge(2,4);
     
-
+    cout << "BFS : " ;
     g.BFS();
+
+    cout << "DFS : ";
+    g.DFS();
 
     //g.printAdjList();
     return 0;
