@@ -97,19 +97,20 @@ bool isCycleUnderDSF(int src, int parent , vector<bool>&vis){    //core logic of
             return false;
             
 }
-//to get rid of unnecessary  parameters 
+//to get rid of passing parent and source again and again
 bool isCycle(){
 vector <bool> vis(V,false);
 
 for(int i=0;i<V;i++){
     if(!vis[i]){
-        isCycleUnderDSF(i,-1,vis);
+        isCycleUnderDSF(i,-1,vis);   // i: source , -1 : parent of source , vis : visited array
 
     }
 }
 return false;
-};
+}
 
+};
 
 int main(){
     Graph g(5);
@@ -125,7 +126,7 @@ int main(){
     cout << "DFS : ";
     g.DFS();
 
-    //g.printAdjList();
+    g.isCycle() ? cout << "Cycle detected\n" : cout << "No Cycle detected\n";
+
     return 0;
-};
-};
+}
