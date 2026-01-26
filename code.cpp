@@ -76,19 +76,39 @@ void DFS(){
     dfsHelper(src,vis);
 }
 
-    void printAdjList(){
-            for(int i=0;i<V;i++){  
-                cout << i << " :" ;
-                for(int neighbour : listOfIntegers[i]){
 
-                    cout << neighbour << " ";
+//Cycle detectin in undirected graph
+bool isCycleUnderDSF(int src, int parent , vector<bool>&vis){    //core logic of the cycle detection in DFS
+            vis[src]=true;
+            list<int> neighbours = listOfIntegers[src];
 
+            for(int v : neighbours){
+                if(!vis[v]){
+
+                  if( isCycleUnderDSF(v,src,vis)){
+                        return true;
+                  }
+                   
+                }else if (v !=parent){
+                    return true;
                 }
-                cout << endl;
-             }
-        }
-};
+                
+            }
+            return false;
+            
+}
+//to get rid of unnecessary  parameters 
+bool isCycle(){
+vector <bool> vis(V,false);
 
+for(int i=0;i<V;i++){
+    if(!vis[i]){
+        isCycleUnderDSF(i,-1,vis);
+
+    }
+}
+return false;
+};
 
 
 int main(){
@@ -107,4 +127,5 @@ int main(){
 
     //g.printAdjList();
     return 0;
-}
+};
+};
