@@ -111,16 +111,19 @@ for(int i=0;i<Vertices;i++){
 return false;
 }
 bool isCycleUnderBFS(int src, vector<bool> &vis){
+    
     queue<pair<int,int>> q;
-
-   vis[src]=true;
-    q.push({src,-1});
+        q.push({src,-1});
+        vis[src]=true;
 
     while(q.size()>0){
      
         int u=q.front().first;
         int parentU=q.front().second;
         q.pop();
+
+                cout << u << " ";
+
 
         list<int> neighbours = listOfIntegers[u];        //storing the listofintegers on my u.
 
@@ -140,11 +143,14 @@ bool isCycleUnderBFS(int src, vector<bool> &vis){
 }
 bool isCycleBFS(){          //using these method to ensure we cover the entire graph as the graphs might be disjoint and also to make the code look readable
     vector<bool> visited(Vertices,false);
+    
+   
     if(!visited[Vertices]){
         if(isCycleUnderBFS(Vertices,visited)){
             return true;
+            }
         }
-    }
+    
 }
 };
 
@@ -153,17 +159,18 @@ int main(){
 
     g.addEdge(0,1);
     g.addEdge(0,2);
-    g.addEdge(0,3);
     g.addEdge(1,2);
+    g.addEdge(2,3);
+    g.addEdge(2,4);
     g.addEdge(3,4);
-    
-    //cout << "BFS : " ;
-    //g.BFS();
+   
+    cout << "BFS : " ;
+    g.BFS();
 
-    //cout << "DFS : ";
-    //g.DFS();
+    cout << "DFS \n: ";
+    g.DFS();
 
-  //  g.isCycle() ? cout << "Cycle detected using DFS \n" : cout << "No Cycle detected\n";
+   g.isCycle() ? cout << "Cycle detected using DFS \n" : cout << "No Cycle detected\n";
 
     g.isCycleBFS() ? cout << "Cycle detected using BFS \n" : cout << "No Cycles detected\n";
 
