@@ -26,7 +26,7 @@ public:                                                          // I believe th
 
     }
       //Bfs Traversal
-void BFS(){    //O(V+E)
+void BFS(){                                                          //O(V+E)
     queue<int> queue;
     queue.push(0);
 
@@ -42,7 +42,7 @@ void BFS(){    //O(V+E)
 
         cout << u << " ";
 
-        for (int neighbour : listOfIntegers[u]){    //v -> immediate neighbours
+        for (int neighbour : listOfIntegers[u]){               //v -> immediate neighbours
 
             if(!visited[neighbour]){
                 visited[neighbour]=true;
@@ -52,13 +52,13 @@ void BFS(){    //O(V+E)
     }
 cout << endl; 
 
-};
-void dfsHelper(int u,vector<bool> &vis ){   //O(V+E)
+}
+void dfsHelper(int u,vector<bool> &vis ){                             //O(V+E)
 
     cout << u << " " ;
     vis[u] =true;
 
-    for (int v : listOfIntegers[u]){   //u -> v 
+    for (int v : listOfIntegers[u]){                                   //u -> v 
 
         if(!vis[v]){
             dfsHelper(v,vis);
@@ -66,11 +66,11 @@ void dfsHelper(int u,vector<bool> &vis ){   //O(V+E)
         }
     }
 
-};
+}
 
 //DFS Traversal
 void DFS(){
-    int src =0 ;
+    int src = 0 ;                                                            //hardcoded value ,really curious how i can turn it into finding a src arbitrarily.
     vector<bool> vis(V,false);
 
     dfsHelper(src,vis);
@@ -78,7 +78,7 @@ void DFS(){
 
 
 //Cycle detectin in undirected graph
-bool isCycleUnderDSF(int src, int parent , vector<bool>&vis){    //core logic of the cycle detection in DFS
+bool isCycleUnderDSF(int src, int parent , vector<bool>&vis){                           //core logic of the cycle detection in DFS
             vis[src]=true;
             list<int> neighbours = listOfIntegers[src];
 
@@ -89,21 +89,22 @@ bool isCycleUnderDSF(int src, int parent , vector<bool>&vis){    //core logic of
                         return true;
                   }
                    
-                }else if (v !=parent){
+                }else if (v !=parent){                    //if cycle exists then return true.
                     return true;
                 }
                 
             }
-            return false;
+            return false;                                       //found no cycle
             
 }
 //to get rid of passing parent and source again and again
 bool isCycle(){
-vector <bool> vis(V,false);
+vector <bool> vis(V,false);                                                                   //V = number of vertices already has false values assigned.
 
 for(int i=0;i<V;i++){
     if(!vis[i]){
-        isCycleUnderDSF(i,-1,vis);   // i: source , -1 : parent of source , vis : visited array
+
+        isCycleUnderDSF(i,-1,vis);                                                  // i: source , -1 : parent of source , vis : visited array
 
     }
 }
