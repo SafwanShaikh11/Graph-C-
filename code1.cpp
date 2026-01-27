@@ -51,16 +51,18 @@ vector <bool> vis(Vertices,false);                                              
 for(int i=0;i<Vertices;i++){
     if(!vis[i]){
 
-        isCycleUnderDSF(i,-1,vis);                                                  // i: source , -1 : parent of source , vis : visited array
+        if(isCycleUnderDSF(i,-1,vis)){
+            return true;
+        }                                                  // i: source , -1 : parent of source , vis : visited array
 
     }
 }
 return false;
 }
-bool isCycleUnderBFS(int src, vector<bool> &vis){
+bool isCycleUnderBFS(int src, int parent ,vector<bool> &vis){
     
     queue<pair<int,int>> q;
-        q.push({src,-1});
+        q.push({src,parent});
         vis[src]=true;
 
     while(q.size()>0){
@@ -69,9 +71,6 @@ bool isCycleUnderBFS(int src, vector<bool> &vis){
         int parentU=q.front().second;
         q.pop();
 
-                cout << u << " ";
-
-
         list<int> neighbours = listOfIntegers[u];        //storing the listofintegers on my u.
 
 
@@ -79,7 +78,7 @@ bool isCycleUnderBFS(int src, vector<bool> &vis){
             if(!vis[v]){
                 q.push({v,u});        //u-----------v
                  vis[v]=true;
-            }else if(v!=parentU){    //if there exist an edge then we got a cycle
+            }else if(v!=parentU){    //if there exist an edge then we got a cycle backedge
                 return true;
             }               
 
@@ -93,7 +92,7 @@ bool isCycleBFS(){          //using these method to ensure we cover the entire g
     
    
     if(!visited[Vertices]){
-        if(isCycleUnderBFS(Vertices,visited)){
+        if(isCycleUnderBFS(Vertices,-1,visited)){
             return true;
             }
         }
@@ -102,24 +101,27 @@ bool isCycleBFS(){          //using these method to ensure we cover the entire g
 
 
 };
+
 int main(){
 
-    Cycle c(5);
+    Cycle c(4);
 
     c.addEdge(0,1);
-    c.addEdge(1,0);
     c.addEdge(1,2);
     c.addEdge(1,3);
-    c.addEdge(2,1);
     c.addEdge(2,3);
-    c.addEdge(3,1);
-    c.addEdge(3,2);
+
+    
+    cout << c.isCycle()<< " ";
+    
+    c.isCycle()? cout << "Cycle detected using DFS \n" : cout << "No Cycle detected\n";
+    
+    //cout << c.isCycleBFS() << " ";  //the problem lies here in this algorithmn , thahts why dfs is the goat ACTUALLY
 
 
+    //c.isCycleBFS() 
 
-        c.isCycleBFS() ? cout << "Cycle detected using DFS \n" : cout << "No Cycle detected\n";
-
-     c.isCycle()? cout << "Cycle detected using BFS \n" : cout << "No Cycles detected\n";
+    
 
 
 }
