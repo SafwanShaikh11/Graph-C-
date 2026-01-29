@@ -6,6 +6,10 @@
 
 using namespace std;
 
+/* This algorithmn is also known as the greedy algorithmn as we always try to find the minimal solution on each step in this process.
+*/
+
+
 class Edge{
 public:                      //constructor
 
@@ -15,8 +19,6 @@ int weight;
     Edge(int vertices, int weight){
         this->vertices=vertices;
         this->weight=weight;
-
-
     }
     
 };
@@ -27,7 +29,10 @@ void dijkstra(int src,vector<vector<Edge>> g,int Vertex ){
 
     distance[src]=0;
 
-    priority_queue<pair<int,int>,vector<pair<int,int>>> pq;  //min-heap queue
+    priority_queue<pair<int,int>> pqueue;  //this is a default max-heap priority queue.
+
+
+    priority_queue<pair<int,int>,vector<pair<int,int>>, greater<pair<int,int>>> pq;  //min-heap queue by rev. the logic adding the greater comparator.  
     //dist[u],u
 
     pq.push({0,src});
