@@ -81,5 +81,6 @@ class GraphDir{
     
     c.CycleDFS()? cout << "Cycle detected using DFS \n" : cout << "No Cycles detected\n";
 
-
+        return 0;
+        
     }
