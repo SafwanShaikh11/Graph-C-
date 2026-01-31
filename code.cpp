@@ -28,7 +28,7 @@ public:                                                          // this is the 
       //Bfs Traversal
 void BFS(){                                                          //O(V+E)
     queue<int> queue;
-    queue.push(0);
+    queue.push(0);                                      //hardcoded value ,really curious how i can turn it into finding a src arbitrarily.
 
     vector<bool> visited(Vertices,false);
 
@@ -40,7 +40,7 @@ void BFS(){                                                          //O(V+E)
         int u =queue.front();                                           // u-v
         queue.pop();
 
-        cout << u << " ";
+        //cout << u << " ";
 
         for (int neighbour : listOfIntegers[u]){               //v -> immediate neighbours
 
@@ -48,6 +48,7 @@ void BFS(){                                                          //O(V+E)
                 visited[neighbour]=true;
                 queue.push(neighbour);
             }
+            cout << neighbour << " ";
         }
     }
 cout << endl; 
@@ -81,13 +82,14 @@ void DFS(){
 int main(){
     Graph g(5);
 
+   
     g.addEdge(0,1);
     g.addEdge(0,2);
     g.addEdge(1,2);
     g.addEdge(2,3);
-    g.addEdge(2,4);
     g.addEdge(3,4);
-   
+
+
     cout << "BFS : " ;
     g.BFS();
 

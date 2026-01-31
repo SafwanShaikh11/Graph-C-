@@ -71,14 +71,15 @@ bool isCycleUnderBFS(int src, int parent ,vector<bool> &vis){
         int parentU=q.front().second;
         q.pop();
 
-        list<int> neighbours = listOfIntegers[u];        //storing the listofintegers on my u.
+      //  list<int> neighbours = listOfIntegers[u];        //storing the listofintegers on my u.
 
 
-        for( int v : neighbours){
+        for( int v : listOfIntegers[u]){
             if(!vis[v]){
+                vis[v]=true;
                 q.push({v,u});        //u-----------v
-                 vis[v]=true;
-            }else if(v!=parentU){    //if there exist an edge then we got a cycle backedge
+                 
+            }else if(v!=parentU){    //if there exist an edge then we got a cycle on the backedge 
                 return true;
             }               
 
@@ -90,12 +91,14 @@ bool isCycleUnderBFS(int src, int parent ,vector<bool> &vis){
 bool isCycleBFS(){          //using these method to ensure we cover the entire graph as the graphs might be disjoint and also to make the code look readable
     vector<bool> visited(Vertices,false);
     
-   
-    if(!visited[Vertices]){
-        if(isCycleUnderBFS(Vertices,-1,visited)){
+   for( int v =0;v<Vertices;v++){
+    if(!visited[v]){
+        
+        if(isCycleUnderBFS(v,-1,visited)){
             return true;
             }
         }
+   }
     
 }
 
@@ -104,22 +107,24 @@ bool isCycleBFS(){          //using these method to ensure we cover the entire g
 
 int main(){
 
-    Cycle c(4);
-
+    Cycle c(5);
+ 
     c.addEdge(0,1);
+    c.addEdge(0,2);
     c.addEdge(1,2);
-    c.addEdge(1,3);
     c.addEdge(2,3);
-
-    
-    cout << c.isCycle()<< " ";
-    
-    c.isCycle()? cout << "Cycle detected using DFS \n" : cout << "No Cycle detected\n";
-    
-    //cout << c.isCycleBFS() << " ";  //the problem lies here in this algorithmn , thahts why dfs is the goat ACTUALLY
+    c.addEdge(3,4);
+    c.addEdge(1,4);
 
 
-    //c.isCycleBFS() 
+    
+    //cout << c.isCycle()<< " ";
+    
+    //c.isCycle()? cout << "Cycle detected using DFS \n" : cout << "No Cycle detected\n";
+    
+    cout << c.isCycleBFS() << " Cycle exists ";                 //the problem lies here in this algorithmn , thahts why 
+
+    c.isCycleBFS() ;
 
     
 
