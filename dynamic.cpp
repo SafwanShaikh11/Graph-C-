@@ -64,7 +64,7 @@ g[2].push_back(Edge(3,2));
 
 g[3].push_back(Edge(4,4));
 
-bellmanFord(0,g,V);
+bellmanFord(0,g,V);  //bellman ford does nt work for negative weight cycles, like if the entire cycle have all the negative values , then it will not work
 
 
 }
