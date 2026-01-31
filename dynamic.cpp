@@ -22,7 +22,7 @@ int weight;
     
 };
 
-void bellmanFord(int src,vector<vector<Edge>> g,int vertices ){
+void bellmanFord(int src,vector<vector<Edge>> g,int vertices ){  //TC O(V.E)
     vector <int> distance(vertices,INT_MAX);
     distance[src]=0;
 
